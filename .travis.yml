@@ -10,6 +10,8 @@ install:
 
 script:
   - vagrant up
+  - test $(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:8081") -eq 200
+  - test $(curl --write-out "%{http_code}\n" --silent --output /dev/null -u prometheus:prometheus "http://localhost:8081/prometheus/graph") -eq 200
 
 after_script:
   - vagrant destroy -f
