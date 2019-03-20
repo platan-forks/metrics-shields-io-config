@@ -5,7 +5,7 @@ install:
   - wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
   - sudo add-apt-repository "deb http://download.virtualbox.org/virtualbox/debian xenial contrib"
   - sudo apt-get update -q
-  - sudo apt-get install linux-headers-generic virtualbox-6.0
+  - sudo apt-get install linux-headers-generic linux-headers-$(uname -r) virtualbox-6.0
   - sudo apt-get install vagrant
 
 script:
