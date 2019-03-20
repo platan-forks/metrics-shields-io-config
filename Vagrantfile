@@ -9,7 +9,6 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "shields-io-metrics.yml"
     ansible.extra_vars = "variables-local.yml"
     ansible.skip_tags = ["certbot-obtain", "certbot-nginx"]
-    ansible.become = true
     ansible.galaxy_role_file = "requirements.yml"
   end
 end
