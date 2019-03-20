@@ -9,7 +9,7 @@ install:
   - sudo apt-get install vagrant
 
 script:
-  - vagrant up
+  - vagrant up --provider=virtualbox
   - test $(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:8081") -eq 200
   - test $(curl --write-out "%{http_code}\n" --silent --output /dev/null -u prometheus:prometheus "http://localhost:8081/prometheus/graph") -eq 200
 
