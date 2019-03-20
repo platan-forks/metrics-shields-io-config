@@ -7,6 +7,7 @@ install:
   - sudo apt-get update -q
   - sudo apt-get install linux-headers-generic linux-headers-$(uname -r) virtualbox-5.1
   - sudo apt-get install vagrant
+  - vagrant -v
 
 script:
   - vagrant up --provider=virtualbox
