@@ -41,6 +41,21 @@
         insecure_skip_verify: true
   tags:
     - prometheus
+- name: Setup pushgateway
+  hosts: metrics
+  roles:
+    - cloudalchemy.pushgateway
+  vars:
+    pushgateway_version: 0.9.1
+    pushgateway_web_listen_address: 127.0.0.1:9091
+    # pushgateway_web_external_url option does not work, using 'web.external-url'
+    # pushgateway_web_external_url: "http://{{ metrics_domain }}/pushgateway/"
+    pushgateway_config_flags_extra:
+      web.route-prefix: /
+      web.external-url: "http://{{ metrics_domain }}/pushgateway/"
+  tags:
+    - prometheus
+    - pushgateway
 - name: Setup grafana
   hosts: metrics
   roles:
@@ -139,6 +154,15 @@
               # this role creates 'nginx' user and installs nginx
               # this htpasswd file will be created in the next task, because it have to be owned by 'nginx' user
               auth_basic_file: /etc/nginx/.htpasswd.{{ metrics_domain }}-prometheus
+            pushgateway:
+              location: /pushgateway/
+              proxy_connect_timeout: 300
+              proxy_pass: http://localhost:9091/
+              proxy_read_timeout: 300
+              auth_basic: "Restricted Content"
+              # this role creates 'nginx' user and installs nginx
+              # this htpasswd file will be created in the next task, because it have to be owned by 'nginx' user
+              auth_basic_file: /etc/nginx/.htpasswd.{{ metrics_domain }}-pushgateway
   tags:
     - nginx
   tasks:
@@ -152,6 +176,16 @@
       path: /etc/nginx/.htpasswd.{{ metrics_domain }}-prometheus
       name: prometheus
       password: '{{ mertics_prometheus_password }}'
+      owner: nginx
+      group: root
+      mode: 0640
+    tags:
+      - nginx-htpasswd
+  - name: Create a password file for nginx/pushgateway
+    htpasswd:
+      path: /etc/nginx/.htpasswd.{{ metrics_domain }}-pushgateway
+      name: pushgateway
+      password: '{{ mertics_pushgateway_password }}'
       owner: nginx
       group: root
       mode: 0640
