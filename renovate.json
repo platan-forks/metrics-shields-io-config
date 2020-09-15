@@ -11,5 +11,11 @@
       ],
       "versioningTemplate": "node"
     }
+  ],
+  "packageRules": [
+    {
+      "packageNames": ["nginx/nginx"],
+      "versioning": "regex:^release-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?$"
+    }
   ]
 }
