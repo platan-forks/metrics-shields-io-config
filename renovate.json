@@ -15,7 +15,7 @@
   "packageRules": [
     {
       "packageNames": ["nginx/nginx"],
-      "versioning": "regex:^release-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?$"
+      "versioning": "regex:(release-)?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?"
     }
   ]
 }
