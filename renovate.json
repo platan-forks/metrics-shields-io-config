@@ -18,5 +18,6 @@
       "packageNames": ["nginx/nginx"],
       "versioning": "regex:(release-)?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?"
     }
-  ]
+  ],
+  "_forceUpdate": "1"
 }
