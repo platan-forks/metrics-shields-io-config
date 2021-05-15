@@ -1,5 +1,5 @@
 - name: cloudalchemy.prometheus
-  version: 2.15.5
+  version: 4.0.0
 - name: nginxinc.nginx
   version: 0.14.0
 - name: cloudalchemy.grafana
